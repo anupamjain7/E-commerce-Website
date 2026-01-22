@@ -1,0 +1,30 @@
+
+<nav class="navbar">
+  <div class="logo">E-Website</div>
+
+  <div class="hamburger" (click)="mobileMenu = !mobileMenu">
+    ☰
+  </div>
+
+  <ul class="nav-links" [class.active]="mobileMenu" *ngIf="mainCategories.length > 0">
+
+    <li
+      *ngFor="let index of mainCategories"
+      (mouseenter)="index.categoryName === 'MEN' && (showDropdown = true)"
+      (mouseleave)="showDropdown = false"
+    >
+      {{ index.categoryName }}
+
+      <div class="dropdown" *ngIf="index.categoryName === 'MEN' && showDropdown">
+        <div
+          class="dropdown-item"
+          *ngFor="let sub of menCategories"
+        >
+          {{ sub.categoryName }}
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</nav>
+
