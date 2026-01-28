@@ -10,25 +10,15 @@ export class Category {
 
   constructor(private http: HttpClient) {}
 
-  
-
-  getMainCategories(): Observable<any> {
-    return this.http.get<any>(environment.api.mainCategoriesUrl).pipe(
-      map((res:any) => res.data.filter((item: any) => item.showInMenu))
-    );
+getMainCategories() {
+    return this.http.get<any>(`${environment.api.BASE_URL}/mainCategories`);
   }
 
-  getMenCategories(): Observable<any> {
-    return this.http.get<any>(environment.api.menTreeUrl).pipe(
-      map((res:any) => {
-        const data = res.data;
-        const allCategories: any[] = [];
-
-        if (data.subCategory) allCategories.push(...data.subCategory);
-        if (data.childCategory) allCategories.push(...data.childCategory);
-
-        return allCategories;
-      })
-    );
+getCategoryTree(urlKey: string) {
+    return this.http
+      .get<any>(`${environment.api.BASE_URL}/${urlKey}/tree`)
   }
+
+
+
 }

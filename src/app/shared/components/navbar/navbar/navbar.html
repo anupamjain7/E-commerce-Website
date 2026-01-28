@@ -1,30 +1,35 @@
 
+
 <nav class="navbar">
   <div class="logo">E-Website</div>
 
-  <div class="hamburger" (click)="mobileMenu = !mobileMenu">
-    ☰
-  </div>
+  <div class="hamburger" (click)="mobileMenu = !mobileMenu">☰</div>
 
-  <ul class="nav-links" [class.active]="mobileMenu" *ngIf="mainCategories.length > 0">
+  <ul class="nav-links" [class.active]="mobileMenu">
 
     <li
       *ngFor="let index of mainCategories"
-      (mouseenter)="index.categoryName === 'MEN' && (showDropdown = true)"
-      (mouseleave)="showDropdown = false"
+      (mouseenter)="openDropdown(index)"
+      (mouseleave)="closeDropdown()"
     >
       {{ index.categoryName }}
-
-      <div class="dropdown" *ngIf="index.categoryName === 'MEN' && showDropdown">
+ 
+      <div class="dropdown mega-menu" *ngIf="activeDropdown === index.urlKey && validSubCategories.length > 0"  (mouseenter)="activeDropdown = index.urlKey"
+    (mouseleave)="closeDropdown()">
         <div
-          class="dropdown-item"
-          *ngFor="let sub of menCategories"
+          class="dropdown-item menu-column"
+          *ngFor="let sub of validSubCategories"
         >
-          {{ sub.categoryName }}
+          <h4>{{ sub.categoryName }}</h4>
+         <ul>
+            <li *ngFor="let child of getChildren(sub.id)">
+              {{ child.categoryName }}
+            </li>
+          </ul>
         </div>
-      </div>
 
+      </div>
     </li>
+
   </ul>
 </nav>
-

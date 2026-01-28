@@ -1,7 +1,7 @@
+
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 12px 20px;
   background: #2c0ed5;
   color: #fff;
@@ -31,28 +31,67 @@
   left: 0;
   background: #fff;
   color: #000;
-  min-width: 220px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+  box-shadow: 0 6px 20px rgba(0,0,0,.2);
   z-index: 10;
 }
 
-.dropdown-item {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+
+.mega-menu {
+  display: grid;
+  grid-template-columns: repeat(3, 250px); /* 4 fixed-width columns per "screen" */
+  gap: 20px;
+  padding: 10px 40px;
+  overflow: auto;
+  max-width: 90vw;
+  max-height: 80vh;
+}
+.mega-menu::-webkit-scrollbar {
+  width: 6px;
 }
 
-.dropdown-item:hover {
-  background: #f5f5f5;
+.mega-menu::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
 
-/* Hamburger */
+
+.menu-column h4 {
+  color: #2c0ed5;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.menu-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-column li {
+  font-size: 13px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.menu-column li:hover {
+  font-weight: 600;
+}
+
+
 .hamburger {
   display: none;
   font-size: 22px;
   cursor: pointer;
 }
-
-/* Mobile */
+@media (max-width: 1280px) {
+  .mega-menu{
+  grid-template-columns: repeat(2, 250px); /* 4 fixed-width columns per "screen" */
+  }
+}
+@media (max-width: 1024px) {
+  .mega-menu{
+  grid-template-columns: repeat(1, 250px); /* 4 fixed-width columns per "screen" */
+  }
+}
 @media (max-width: 768px) {
   .hamburger {
     display: block;
@@ -62,7 +101,7 @@
     position: absolute;
     top: 60px;
     right: 15px;
-    width: 220px;
+    width: 240px;
     background: #2c0ed5;
     color: #fff;
     flex-direction: column;
@@ -71,7 +110,8 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     display: none;
     overflow: hidden;
-    animation: slideDown 0.3s ease;
+    z-index: 10;
+
   }
 
   .nav-links.active {
@@ -80,18 +120,27 @@
 
   .nav-links li {
     padding: 14px 16px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
   }
-
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-
-
-  .dropdown {
+ .dropdown {
     position: static;
     box-shadow: none;
-    border-radius: 0;
+  }
+
+  .mega-menu {
+    grid-template-columns: 1fr;
+    min-width: auto;
+  }
+  .navbar{
+    justify-content: space-between;
   }
 }
+
+
+
+
+
+
+
+
 
