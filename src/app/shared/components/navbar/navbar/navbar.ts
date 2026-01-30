@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 export class Navbar implements OnInit {
   mainCategories: any[] = [];
  subCategories: any[] = [];
+ categoryCache: Record<string, any> = {};
   menChildCategories: any[] = [];
   childCategories: any[] = [];
   showDropdown = false;
@@ -36,15 +37,34 @@ export class Navbar implements OnInit {
 
 
   openDropdown(category: any) {
+    const key=category.urlKey;
     this.activeDropdown = category.urlKey;
     this.isLoading = true;
     this.subCategories = [];
     this.childCategories = [];
+      if (this.categoryCache[key]) {
+    const cached = this.categoryCache[key];
+    this.subCategories = cached.subCategories;
+    this.childCategories = cached.childCategories;
+    return;
+  }
+    this.isLoading = true;
+  this.subCategories = [];
+  this.childCategories = [];
+
     this.categoryService.getCategoryTree(category.urlKey).subscribe({
       next: (res) => {
         this.subCategories = res.data.subCategory || [];
         this.childCategories = res.data.childCategory || [];
-        this.isLoading = false;
+        const data = {
+        subCategories: res.data.subCategory || [],
+        childCategories: res.data.childCategory || [],
+      };
+        this.categoryCache[key] = data;
+
+      this.subCategories = data.subCategories;
+      this.childCategories = data.childCategories;
+      this.isLoading = false;
         this.cd.detectChanges();
       },
       error: () => (this.isLoading = false),

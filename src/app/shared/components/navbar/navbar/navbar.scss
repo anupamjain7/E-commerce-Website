@@ -38,7 +38,7 @@
 
 .mega-menu {
   display: grid;
-  grid-template-columns: repeat(3, 250px); /* 4 fixed-width columns per "screen" */
+  grid-template-columns: repeat(3, 250px);
   gap: 20px;
   padding: 10px 40px;
   overflow: auto;
@@ -84,12 +84,12 @@
 }
 @media (max-width: 1280px) {
   .mega-menu{
-  grid-template-columns: repeat(2, 250px); /* 4 fixed-width columns per "screen" */
+  grid-template-columns: repeat(2, 250px); 
   }
 }
 @media (max-width: 1024px) {
   .mega-menu{
-  grid-template-columns: repeat(1, 250px); /* 4 fixed-width columns per "screen" */
+  grid-template-columns: repeat(1, 250px);
   }
 }
 @media (max-width: 768px) {
